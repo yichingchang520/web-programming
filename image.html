@@ -2,30 +2,42 @@
 <html>
 <head>
 <style>
+/* 1. 加回外層容器：用來解決「距離太遠」的問題 */
+.container {
+  display: flex;
+  justify-content: center; /* 讓三張圖片置中並排 */
+  align-items: center;
+  gap: 20px; /* 這裡可以調整圖片之間的距離，數字越小越近 */
+}
 
+/* 2. 左邊圖片：恢復使用 cover (填滿且不變形) */
 .img-left {
   width: 33%;
   height: 300px;
   border-radius: 18px;
-  object-fit: contain; /* 改成 contain：保證顯示全圖不變形，但可能會有留白 */}
+  object-fit: cover; /* 為了符合你「不變形且填滿」的需求，被裁切是正常的 */
+}
 
+/* 3. 中間圖片：加上黑色圓框 */
 .img-center {
   width: 150px;
   height: 150px;
-  border-radius: 50%; /* 完美圓形 */
-  object-fit: cover; /* 不變形 */
+  border-radius: 50%; 
+  object-fit: cover; 
+  border: 3px solid black; /* 加上 3px 的實線黑色邊框 */
 }
 
+/* 4. 右邊圖片：維持 fill (產生變形效果) */
 .img-right {
   width: 33%;
   height: 300px;
-  object-fit: fill; /* 變形 */
+  object-fit: fill; /* 把「所有內容」硬塞進這個寬高，所以長寬比會跑掉，達到你要的 distortion 效果 */
 }
 </style>
 </head>
 <body>
 
-<div>
+<div class="container">
   <a target="_blank" href="https://picsum.photos/id/1018/800/1000">
     <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-left">
   </a>
