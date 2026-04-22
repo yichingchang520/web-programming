@@ -2,51 +2,60 @@
 <html>
 <head>
 <style>
-/* 1. 加回外層容器：用來解決「距離太遠」的問題 */
+/* 1. 外層容器：負責把裡面的項目並排置中 */
 .container {
   display: flex;
-  justify-content: center; /* 讓三張圖片置中並排 */
+  justify-content: center;
   align-items: center;
-  gap: 20px; /* 這裡可以調整圖片之間的距離，數字越小越近 */
+  gap: 20px;
 }
 
-/* 2. 左邊圖片：恢復使用 cover (填滿且不變形) */
-.img-left {
+/* 2. 控制外圍的 <a> 標籤寬度 (Flexbox 的真正對象) */
+.link-left, .link-right {
   width: 33%;
+  display: block; /* <a> 預設是行內元素，改成 block 才能正常設定寬高 */
+}
+
+.link-center {
+  width: 150px;
+  display: block;
+}
+
+/* 3. 讓裡面的圖片統一填滿 <a> 標籤的寬度 (100%) */
+.img-left {
+  width: 100%; /* 填滿 link-left 的 33% 空間 */
   height: 300px;
   border-radius: 18px;
-  object-fit: cover; /* 為了符合你「不變形且填滿」的需求，被裁切是正常的 */
+  object-fit: cover; 
 }
 
-/* 3. 中間圖片：加上黑色圓框 */
 .img-center {
-  width: 150px;
+  width: 100%; /* 填滿 link-center 的 150px 空間 */
   height: 150px;
   border-radius: 50%; 
   object-fit: cover; 
-  border: 3px solid black; /* 加上 3px 的實線黑色邊框 */
+  border: 3px solid black; 
 }
 
-/* 4. 右邊圖片：維持 fill (產生變形效果) */
 .img-right {
-  width: 33%;
+  width: 100%; /* 填滿 link-right 的 33% 空間 */
   height: 300px;
-  object-fit: fill; /* 把「所有內容」硬塞進這個寬高，所以長寬比會跑掉，達到你要的 distortion 效果 */
+  object-fit: fill; 
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <a target="_blank" href="https://picsum.photos/id/1018/800/1000">
+  <a target="_blank" href="https://picsum.photos/id/1018/800/1000" class="link-left">
     <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-left">
   </a>
   
-  <a target="_blank" href="https://picsum.photos/id/1015/800/800">
+  <a target="_blank" href="https://picsum.photos/id/1015/800/800" class="link-center">
     <img src="https://picsum.photos/id/1015/800/800" alt="Landscape" class="img-center">
   </a>
   
-  <a target="_blank" href="https://picsum.photos/id/1018/800/1000">
+  <a target="_blank" href="https://picsum.photos/id/1018/800/1000" class="link-right">
     <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-right">
   </a>
 </div>
