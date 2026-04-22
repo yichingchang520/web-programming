@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Preview UI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Colors from specs */
+            --header-bg: #f6f6f6;
+            --list-color: #ffffff;
+            --list-border: #eaeaea;
+            --list-select-bg: #e8f3ff;
+            --list-select-border: #cfddff;
+            --bottom-bg: #f3f3f3;
+            --text-main: #2f2f2f;
+            --text-secondary: #707070;
+            --text-highlight: #0084ff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #e0e0e0; /* Just to contrast with the white app window */
+            display: flex;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        /* Main Container */
+        .app-container {
+            display: flex;
+            width: 800px;
+            height: 450px;
+            background: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- Left Panel (File List) --- */
+        .left-panel {
+            width: 300px; /* Approximate width from ratio */
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--list-border);
+        }
+
+        .left-header {
+            height: 35px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--list-border);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 13px;
+            color: var(--text-main);
+            box-sizing: border-box;
+        }
+
+        .list-container {
+            flex: 1;
+            overflow-y: auto;
+            background-color: var(--list-color);
+        }
+
+        .list-item {
+            height: 28px; /* Based on spec 28 */
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            border-bottom: 1px solid var(--list-border);
+            font-size: 13px;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .list-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .list-item.selected {
+            background-color: var(--list-select-bg);
+            border-bottom: 1px solid var(--list-select-border);
+        }
+
+        .list-item input[type="checkbox"] {
+            margin-right: 12px;
+            accent-color: #a020f0; /* Purple checkbox placeholder */
+        }
+
+        .left-footer {
+            height: 30px;
+            background-color: var(--bottom-bg);
+            border-top: 1px solid var(--list-border);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 13px;
+            color: var(--text-main);
+            box-sizing: border-box;
+        }
+
+        .left-footer .count {
+            color: var(--text-highlight);
+        }
+
+        /* --- Right Panel (Preview) --- */
+        .right-panel {
+            width: 496px; /* Exact spec */
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .right-header {
+            height: 35px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid var(--list-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px; /* Spec says 15px from right for button */
+            font-size: 13px;
+            color: var(--text-main);
+            box-sizing: border-box;
+        }
+
+        /* Button styled exactly to handwritten specs */
+        .info-btn {
+            height: 22px;
+            padding: 0 10px;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid #2f2f2f;
+            color: #2f2f2f;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .preview-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px; /* From spec */
+            background-color: #fff;
+            overflow-y: auto;
+        }
+
+        .image-container {
+            width: 450px;
+            background-color: #fce4cc; /* Placeholder background color based on layout */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Expandable Info Panel */
+        .info-panel {
+            width: 450px;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-secondary); /* #707070 */
+            padding-bottom: 20px;
+        }
+
+        .info-panel.active {
+            display: flex;
+        }
+
+        .info-row {
+            display: flex;
+            /* Green highlight matching the diagram's spec block spacing visually */
+            background-color: #e6ffe6; 
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="left-panel">
+            <div class="left-header">
+                名稱
+            </div>
+            <div class="list-container">
+                <label class="list-item selected">
+                    <input type="checkbox" checked>
+                    20171012_1.jpg
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_2.jpg
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_3.png
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_4.jpg
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_5.jpg
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_6.png
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_7.png
+                </label>
+                <label class="list-item">
+                    <input type="checkbox">
+                    20171012_8.png
+                </label>
+            </div>
+            <div class="left-footer">
+                數量 : <span class="count">&nbsp;64</span> / 100
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="right-header">
+                <span>預覽</span>
+                <button class="info-btn" id="toggleInfoBtn">查看資訊</button>
+            </div>
+            <div class="preview-content">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1506744626753-1fa44df14dd4?w=450&h=240&fit=crop" alt="Preview Image">
+                </div>
+                
+                <div class="info-panel" id="infoPanel">
+                    <div class="info-row">修改日期 : 2017/10/12</div>
+                    <div class="info-row">類別 : JPG</div>
+                    <div class="info-row">大小 : 466.97KB</div>
+                    <div class="info-row">路徑 : \\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('toggleInfoBtn');
+        const panel = document.getElementById('infoPanel');
+
+        btn.addEventListener('click', () => {
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                btn.textContent = '收起資訊';
+            } else {
+                btn.textContent = '查看資訊';
+            }
+        });
+    </script>
+
+</body>
+</html>
