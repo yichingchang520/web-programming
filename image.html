@@ -2,45 +2,49 @@
 <html>
 <head>
 <style>
-/* 1. 外層容器：負責把裡面的項目並排置中 */
+/* 1. 外層容器排版 */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 20px; 
 }
 
-/* 2. 控制外圍的 <a> 標籤寬度 (Flexbox 的真正對象) */
+/* 2. 定義外框大小，並加上 flex-shrink: 0 防止被 Flexbox 壓縮變形 */
 .link-left, .link-right {
   width: 33%;
-  display: block; /* <a> 預設是行內元素，改成 block 才能正常設定寬高 */
+  height: 300px;
+  display: block;
+  flex-shrink: 0; /* 關鍵：禁止被壓縮 */
 }
 
 .link-center {
   width: 150px;
-  display: block;
-}
-
-/* 3. 讓裡面的圖片統一填滿 <a> 標籤的寬度 (100%) */
-.img-left {
-  width: 100%; /* 填滿 link-left 的 33% 空間 */
-  height: 300px;
-  border-radius: 18px;
-  object-fit: cover; 
-}
-
-.img-center {
-  width: 100%; /* 填滿 link-center 的 150px 空間 */
   height: 150px;
-  border-radius: 50%; 
-  object-fit: cover; 
-  border: 3px solid black; 
+  display: block;
+  flex-shrink: 0; /* 關鍵：禁止被壓縮 */
 }
 
-.img-right {
-  width: 100%; /* 填滿 link-right 的 33% 空間 */
-  height: 300px;
-  object-fit: fill; 
+/* 3. 裡面的圖片負責 100% 填滿外框，並決定是否要變形 (object-fit) */
+.link-left img {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  object-fit: cover; /* 填滿且不變形 (會被裁切) */
+}
+
+.link-center img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid black; /* 黑色邊框 */
+  object-fit: cover; 
+}
+
+.link-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* 強制填滿 (會變形 distortion) */
 }
 </style>
 </head>
@@ -48,15 +52,15 @@
 
 <div class="container">
   <a target="_blank" href="https://picsum.photos/id/1018/800/1000" class="link-left">
-    <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-left">
+    <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape">
   </a>
   
   <a target="_blank" href="https://picsum.photos/id/1015/800/800" class="link-center">
-    <img src="https://picsum.photos/id/1015/800/800" alt="Landscape" class="img-center">
+    <img src="https://picsum.photos/id/1015/800/800" alt="Landscape">
   </a>
   
   <a target="_blank" href="https://picsum.photos/id/1018/800/1000" class="link-right">
-    <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-right">
+    <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape">
   </a>
 </div>
 
