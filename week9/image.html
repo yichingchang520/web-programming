@@ -8,14 +8,7 @@
   justify-content: space-around; 
   align-items: center;
   width: 100%; /* 確保容器佔滿整個畫面 */
-  padding: 20px 0;
-}
-
-/* 2. 定義左右外框：明確指定 33% 寬度與 300px 高度 */
-.link-left, .link-right {
-  width: 33%;
-  height: 300px;
-  display: block;
+  padding: 10px;
 }
 
 /* 3. 定義中間外框 */
@@ -28,16 +21,16 @@
 
 /* 4. 圖片設定：消除 img 預設的底部空白 (display: block)，並 100% 填滿外框 */
 .link-left img {
-  width: 100%;
-  height: 100%;
+  width: 33%;
+  height: 300px;
   border-radius: 18px;
   object-fit: cover; /* 左邊：不變形，多餘的部分裁切掉 */
   display: block;
 }
 
 .link-center img {
-  width: 100%;
-  height: 100%;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: 2px solid black; 
   object-fit: cover; 
@@ -45,8 +38,8 @@
 }
 
 .link-right img {
-  width: 100%;
-  height: 100%;
+  width: 33%;
+  height: 150px;
   object-fit: fill; /* 右邊：硬塞進外框，產生 distortion (變形) */
   display: block;
 }
