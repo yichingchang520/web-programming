@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* 模擬圖片中的藍色背景與外觀 */
+body {
+  background-color: #5bb4ff; 
+  padding: 20px;
+  margin: 0;
+}
+
+/* 白色卡片容器 */
+.container {
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 使用 Flexbox 來建立行，並允許換行 */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* 欄位的共用間距 */
+.column {
+  padding: 5px;
+}
+
+/* 讓區塊有高度和顏色以便視覺呈現 */
+.content {
+  width: 100%;
+  border-radius: 4px;
+}
+.header-content { background-color: #a4cc52; height: 120px; }
+.middle-content { background-color: #12bdd3; height: 100px; }
+.bottom-content { background-color: #e5e9eb; height: 80px; }
+
+/* =========================================
+   大螢幕預設排版 (Desktop Layout)
+   ========================================= */
+/* 上方綠色區塊：佔滿 100% (1欄) */
+.header-col { width: 100%; }
+
+/* 中間青色區塊：佔 33.33% (3欄) */
+.middle-col { width: 33.33%; }
+
+/* 下方灰色區塊：佔 25% (4欄) */
+.bottom-col { width: 25%; }
+
+/* =========================================
+   手機版排版 (Mobile Layout) - 寬度小於 480px
+   ========================================= */
+@media screen and (max-width: 480px) {
+  /* 中間青色區塊：改為佔滿 100% (變成上下堆疊的1欄) */
+  .middle-col {
+    width: 100%;
+  }
+  
+  /* 下方灰色區塊：改為佔 50% (變成 2x2 網格的2欄) */
+  .bottom-col {
+    width: 50%;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  
+  <div class="row">
+    <div class="column header-col">
+      <div class="content header-content"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column middle-col">
+      <div class="content middle-content"></div>
+    </div>
+    <div class="column middle-col">
+      <div class="content middle-content"></div>
+    </div>
+    <div class="column middle-col">
+      <div class="content middle-content"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column bottom-col">
+      <div class="content bottom-content"></div>
+    </div>
+    <div class="column bottom-col">
+      <div class="content bottom-content"></div>
+    </div>
+    <div class="column bottom-col">
+      <div class="content bottom-content"></div>
+    </div>
+    <div class="column bottom-col">
+      <div class="content bottom-content"></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
