@@ -2,19 +2,12 @@
 <html>
 <head>
 <style>
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
 
 .img-left {
   width: 33%;
   height: 300px;
   border-radius: 18px;
-  object-fit: cover; /* 不變形 */
-}
+  object-fit: contain; /* 改成 contain：保證顯示全圖不變形，但可能會有留白 */}
 
 .img-center {
   width: 150px;
@@ -32,7 +25,7 @@
 </head>
 <body>
 
-<div class="container">
+<div>
   <a target="_blank" href="https://picsum.photos/id/1018/800/1000">
     <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-left">
   </a>
