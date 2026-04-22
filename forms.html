@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Preview UI</title>
+    <title>File Preview System - Dynamic Count</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Colors from specs */
             --header-bg: #f6f6f6;
             --list-color: #ffffff;
             --list-border: #eaeaea;
@@ -21,25 +20,26 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #e0e0e0; /* Just to contrast with the white app window */
+            background-color: #f0f2f5;
             display: flex;
             justify-content: center;
-            padding: 50px;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        /* Main Container */
         .app-container {
             display: flex;
             width: 800px;
             height: 450px;
             background: #fff;
             border: 1px solid #ccc;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
-        /* --- Left Panel (File List) --- */
+        /* --- 左側列表 --- */
         .left-panel {
-            width: 300px; /* Approximate width from ratio */
+            width: 300px;
             display: flex;
             flex-direction: column;
             border-right: 1px solid var(--list-border);
@@ -54,17 +54,15 @@
             padding: 0 12px;
             font-size: 13px;
             color: var(--text-main);
-            box-sizing: border-box;
         }
 
         .list-container {
             flex: 1;
             overflow-y: auto;
-            background-color: var(--list-color);
         }
 
         .list-item {
-            height: 28px; /* Based on spec 28 */
+            height: 28px;
             display: flex;
             align-items: center;
             padding: 0 12px;
@@ -72,20 +70,16 @@
             font-size: 13px;
             color: var(--text-main);
             cursor: pointer;
+            transition: background 0.2s;
         }
 
-        .list-item:hover {
-            background-color: #f9f9f9;
-        }
-
-        .list-item.selected {
+        .list-item:has(input:checked) {
             background-color: var(--list-select-bg);
             border-bottom: 1px solid var(--list-select-border);
         }
 
         .list-item input[type="checkbox"] {
             margin-right: 12px;
-            accent-color: #a020f0; /* Purple checkbox placeholder */
         }
 
         .left-footer {
@@ -97,19 +91,19 @@
             padding: 0 12px;
             font-size: 13px;
             color: var(--text-main);
-            box-sizing: border-box;
         }
 
-        .left-footer .count {
+        #selectedCount {
             color: var(--text-highlight);
+            font-weight: bold;
+            margin-left: 5px;
         }
 
-        /* --- Right Panel (Preview) --- */
+        /* --- 右側預覽 --- */
         .right-panel {
-            width: 496px; /* Exact spec */
+            flex: 1;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
         .right-header {
@@ -119,159 +113,139 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 15px; /* Spec says 15px from right for button */
-            font-size: 13px;
-            color: var(--text-main);
-            box-sizing: border-box;
+            padding: 0 15px;
         }
 
-        /* Button styled exactly to handwritten specs */
-        .info-btn {
+        /* 根據圖片標註 "Try this" 的精確按鈕樣式 */
+        .special-btn {
+            /* size: h22 / R8 */
             height: 22px;
-            padding: 0 10px;
             border-radius: 8px;
-            background: #ffffff;
+            
+            /* background & outline */
+            background-color: #ffffff;
             border: 1px solid #2f2f2f;
-            color: #2f2f2f;
+            
+            /* font style */
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
+            color: #2f2f2f;
+            
+            /* alignment & spacing */
+            padding: 0 12px;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            outline: none;
+            transition: all 0.2s;
         }
 
-        .info-btn:hover {
-            background: #f0f0f0;
+        .special-btn:hover {
+            background-color: #f0f0f0;
         }
 
         .preview-content {
             flex: 1;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 20px; /* From spec */
             background-color: #fff;
             overflow-y: auto;
         }
 
-        .image-container {
+        .image-box {
             width: 450px;
-            background-color: #fce4cc; /* Placeholder background color based on layout */
+            height: 240px;
+            background-color: #fce4cc;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;
         }
 
-        .image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Expandable Info Panel */
         .info-panel {
             width: 450px;
-            margin-top: 10px;
-            display: none; /* Hidden by default */
-            flex-direction: column;
-            gap: 6px;
+            margin-top: 15px;
+            display: none;
+            background-color: #e6ffe6; /* 仿圖中綠色標註區 */
+            padding: 10px;
             font-size: 13px;
-            color: var(--text-secondary); /* #707070 */
-            padding-bottom: 20px;
+            line-height: 1.6;
         }
 
-        .info-panel.active {
-            display: flex;
-        }
-
-        .info-row {
-            display: flex;
-            /* Green highlight matching the diagram's spec block spacing visually */
-            background-color: #e6ffe6; 
-            padding: 4px;
+        .info-panel.visible {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="left-panel">
-            <div class="left-header">
-                名稱
-            </div>
-            <div class="list-container">
-                <label class="list-item selected">
-                    <input type="checkbox" checked>
-                    20171012_1.jpg
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_2.jpg
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_3.png
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_4.jpg
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_5.jpg
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_6.png
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_7.png
-                </label>
-                <label class="list-item">
-                    <input type="checkbox">
-                    20171012_8.png
-                </label>
-            </div>
-            <div class="left-footer">
-                數量 : <span class="count">&nbsp;64</span> / 100
-            </div>
+<div class="app-container">
+    <div class="left-panel">
+        <div class="left-header">名稱</div>
+        <div class="list-container" id="fileList">
+            <label class="list-item"><input type="checkbox" checked> 20171012_1.jpg</label>
+            <label class="list-item"><input type="checkbox"> 20171012_2.jpg</label>
+            <label class="list-item"><input type="checkbox"> 20171012_3.png</label>
+            <label class="list-item"><input type="checkbox"> 20171012_4.jpg</label>
+            <label class="list-item"><input type="checkbox"> 20171012_5.jpg</label>
+            <label class="list-item"><input type="checkbox"> 20171012_6.png</label>
+            <label class="list-item"><input type="checkbox"> 20171012_7.jpg</label>
+            <label class="list-item"><input type="checkbox"> 20171012_8.jpg</label>
         </div>
-
-        <div class="right-panel">
-            <div class="right-header">
-                <span>預覽</span>
-                <button class="info-btn" id="toggleInfoBtn">查看資訊</button>
-            </div>
-            <div class="preview-content">
-                <div class="image-container">
-                    <img src="https://images.unsplash.com/photo-1506744626753-1fa44df14dd4?w=450&h=240&fit=crop" alt="Preview Image">
-                </div>
-                
-                <div class="info-panel" id="infoPanel">
-                    <div class="info-row">修改日期 : 2017/10/12</div>
-                    <div class="info-row">類別 : JPG</div>
-                    <div class="info-row">大小 : 466.97KB</div>
-                    <div class="info-row">路徑 : \\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
-                </div>
-            </div>
+        <div class="left-footer">
+            數量 : <span id="selectedCount">0</span> / 100
         </div>
     </div>
 
-    <script>
-        const btn = document.getElementById('toggleInfoBtn');
-        const panel = document.getElementById('infoPanel');
+    <div class="right-panel">
+        <div class="right-header">
+            <span style="font-size: 13px;">預覽</span>
+            <button class="special-btn" id="infoBtn">查看資訊</button>
+        </div>
+        <div class="preview-content">
+            <div class="image-box">
+                <span style="color:#707070">預覽圖片區域 (450x240)</span>
+            </div>
+            <div class="info-panel" id="infoPanel">
+                <div>修改日期 : 2017/10/12</div>
+                <div>類別 : JPG</div>
+                <div>大小 : 466.97KB</div>
+                <div style="word-break: break-all;">路徑 : C:\DesignCenter\Sample\Image.jpg</div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        btn.addEventListener('click', () => {
-            panel.classList.toggle('active');
-            if (panel.classList.contains('active')) {
-                btn.textContent = '收起資訊';
-            } else {
-                btn.textContent = '查看資訊';
-            }
-        });
-    </script>
+<script>
+    // 1. 動態計數功能
+    const checkboxes = document.querySelectorAll('#fileList input[type="checkbox"]');
+    const countDisplay = document.getElementById('selectedCount');
+
+    function updateCount() {
+        const checkedCount = document.querySelectorAll('#fileList input[type="checkbox"]:checked').length;
+        countDisplay.textContent = checkedCount;
+    }
+
+    // 監聽每一個 checkbox 的變化
+    checkboxes.forEach(box => {
+        box.addEventListener('change', updateCount);
+    });
+
+    // 初始化計數
+    updateCount();
+
+    // 2. 按鈕切換資訊功能
+    const infoBtn = document.getElementById('infoBtn');
+    const infoPanel = document.getElementById('infoPanel');
+
+    infoBtn.addEventListener('click', () => {
+        const isVisible = infoPanel.classList.toggle('visible');
+        infoBtn.textContent = isVisible ? '收起資訊' : '查看資訊';
+    });
+</script>
 
 </body>
 </html>
