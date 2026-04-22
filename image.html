@@ -2,52 +2,47 @@
 <html>
 <head>
 <style>
-/* 為了讓圖片像圖中一樣漂亮並排，加上一個排版用的外層容器 */
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 讓圖片之間有間距 */
+  justify-content: space-between;
   gap: 10px;
 }
 
-/* 左邊圖片：巴黎鐵塔 (無變形) */
 .img-left {
   width: 33%;
   height: 300px;
-  border-radius: 18px; /* 圓角 18px */
-  object-fit: cover;   /* no distortion：保持比例裁切，不變形 */
+  border-radius: 18px;
+  object-fit: cover; /* 不變形 */
 }
 
-/* 中間圖片：風景圓圖 (無變形) */
 .img-center {
   width: 150px;
   height: 150px;
-  border-radius: 50%; /* 也可以寫 150px，用來將正方形變成完美的圓形 */
-  object-fit: cover;  /* no distortion：保持比例，不變形 */
+  border-radius: 50%; /* 完美圓形 */
+  object-fit: cover; /* 不變形 */
 }
 
-/* 右邊圖片：巴黎鐵塔 (變形) */
 .img-right {
   width: 33%;
   height: 300px;
-  /* 圖片預設就是 object-fit: fill，當強制設定長寬且與原圖比例不符時，就會產生 distortion (變形) 效果 */
-  object-fit: fill; 
+  object-fit: fill; /* 變形 */
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <a target="_blank" href="paris.jpg">
-    <img src="paris.jpg" alt="Paris" class="img-left">
+  <a target="_blank" href="https://picsum.photos/id/1018/800/1000">
+    <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-left">
   </a>
   
-  <a target="_blank" href="circle.jpg">
-    <img src="circle.jpg" alt="Landscape" class="img-center">
+  <a target="_blank" href="https://picsum.photos/id/1015/800/800">
+    <img src="https://picsum.photos/id/1015/800/800" alt="Landscape" class="img-center">
   </a>
   
-  <a target="_blank" href="paris.jpg">
-    <img src="paris.jpg" alt="Paris" class="img-right">
+  <a target="_blank" href="https://picsum.photos/id/1018/800/1000">
+    <img src="https://picsum.photos/id/1018/800/1000" alt="Landscape" class="img-right">
   </a>
 </div>
 
