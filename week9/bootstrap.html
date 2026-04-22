@@ -25,17 +25,23 @@
     <input type="text" id="demoInput" class="form-control">
   </div>
   
-  <div class="alert alert-success component-spacing">
+  <div id="successAlert" class="alert alert-success component-spacing" style="display: none;">
     Successful alert
   </div>
   
   <div>
-    <button type="button" class="btn btn-default">Button</button>
-    
+    <button type="button" class="btn btn-default" onclick="showAlert()">Button</button>
     <span class="badge">badge</span>
   </div>
 
 </div>
+
+<script>
+  function showAlert() {
+    // 透過 id 找到提示區塊，並將其 display 樣式改為 'block' (顯示)
+    document.getElementById("successAlert").style.display = "block";
+  }
+</script>
 
 </body>
 </html>
