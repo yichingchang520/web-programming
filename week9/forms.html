@@ -3,23 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Preview System - Dynamic Count</title>
+    <title>Engineer & Designer Cooperation - Button Spec</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --header-bg: #f6f6f6;
-            --list-color: #ffffff;
-            --list-border: #eaeaea;
-            --list-select-bg: #e8f3ff;
-            --list-select-border: #cfddff;
-            --bottom-bg: #f3f3f3;
-            --text-main: #2f2f2f;
-            --text-secondary: #707070;
-            --text-highlight: #0084ff;
-        }
-
         body {
-            font-family: 'Roboto', sans-serif;
             background-color: #f0f2f5;
             display: flex;
             justify-content: center;
@@ -28,224 +15,135 @@
             margin: 0;
         }
 
-        .app-container {
-            display: flex;
-            width: 800px;
-            height: 450px;
-            background: #fff;
-            border: 1px solid #ccc;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        /* --- 左側列表 --- */
-        .left-panel {
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid var(--list-border);
-        }
-
-        .left-header {
-            height: 35px;
-            background-color: var(--header-bg);
-            border-bottom: 1px solid var(--list-border);
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        .list-container {
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .list-item {
-            height: 28px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            border-bottom: 1px solid var(--list-border);
-            font-size: 13px;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .list-item:has(input:checked) {
-            background-color: var(--list-select-bg);
-            border-bottom: 1px solid var(--list-select-border);
-        }
-
-        .list-item input[type="checkbox"] {
-            margin-right: 12px;
-        }
-
-        .left-footer {
-            height: 30px;
-            background-color: var(--bottom-bg);
-            border-top: 1px solid var(--list-border);
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            font-size: 13px;
-            color: var(--text-main);
-        }
-
-        #selectedCount {
-            color: var(--text-highlight);
-            font-weight: bold;
-            margin-left: 5px;
-        }
-
-        /* --- 右側預覽 --- */
-        .right-panel {
-            flex: 1;
+        /* 根據設計圖，右側面板總寬度為 496px */
+        .preview-container {
+            width: 496px; 
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
         }
 
-        .right-header {
+        /* 標題列：高度 35px, 背景 #f6f6f6 */
+        .header {
             height: 35px;
-            background-color: var(--header-bg);
-            border-bottom: 1px solid var(--list-border);
+            background-color: #f6f6f6;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 15px;
+            padding: 0 15px; 
+            border-bottom: 1px solid #eaeaea;
         }
 
-        /* 根據圖片標註 "Try this" 的精確按鈕樣式 */
-        .special-btn {
-            /* size: h22 / R8 */
-            height: 22px;
-            border-radius: 8px;
-            
-            /* background & outline */
-            background-color: #ffffff;
-            border: 1px solid #2f2f2f;
-            
-            /* font style */
+        .header-title {
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
-            color: #2f2f2f;
-            
-            /* alignment & spacing */
-            padding: 0 12px;
+            color: #707070;
+        }
+
+        /* --- 精確還原設計師標定的按鈕 (Try this) --- */
+        .spec-btn {
+            height: 22px;              /* size: h22 */
+            border-radius: 8px;        /* size: R8 */
+            background-color: #ffffff; /* background: #ffffff */
+            border: 1px solid #2f2f2f; /* outline: 1px #2f2f2f */
+            font-family: 'Roboto', sans-serif; /* Font style: Roboto Regular */
+            font-size: 13px;           /* Font size: 13px */
+            color: #2f2f2f;            /* Color: #2f2f2f */
+            padding: 0 18px;           /* 依據按鈕內的 '18' 標示推測的左右內距 */
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             outline: none;
-            transition: all 0.2s;
+            transition: background-color 0.2s ease;
         }
 
-        .special-btn:hover {
+        .spec-btn:hover {
             background-color: #f0f0f0;
         }
 
-        .preview-content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #fff;
-            overflow-y: auto;
+        /* 內容區塊與圖片間距：左 20px、右 26px */
+        .content-area {
+            padding-top: 20px;
+            padding-left: 20px;
+            padding-right: 26px;
+            padding-bottom: 20px;
         }
 
+        /* 圖片範圍：450x240 */
         .image-box {
             width: 450px;
             height: 240px;
-            background-color: #fce4cc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #ccc;
+            background-image: url('https://images.unsplash.com/photo-1506744626753-1fa44df14dd4?w=450&h=240&fit=crop');
+            background-size: cover;
+            background-position: center;
         }
 
+        /* 展開資訊面板 */
         .info-panel {
-            width: 450px;
-            margin-top: 15px;
-            display: none;
-            background-color: #e6ffe6; /* 仿圖中綠色標註區 */
-            padding: 10px;
-            font-size: 13px;
-            line-height: 1.6;
+            margin-top: 10px; /* 圖片與文字的間距標示為 10 */
+            display: none;    /* 預設隱藏 */
+            flex-direction: column;
+            margin-bottom: 10px; /* 底部 Min 10 標示 */
         }
 
+        /* 當加入 .visible 類別時顯示面板 */
         .info-panel.visible {
-            display: block;
+            display: flex;
+        }
+
+        .info-row {
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            color: #707070;
+            margin-bottom: 6px; /* 每行之間的間距標示為 6 */
+            word-break: break-all;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="left-panel">
-        <div class="left-header">名稱</div>
-        <div class="list-container" id="fileList">
-            <label class="list-item"><input type="checkbox" checked> 20171012_1.jpg</label>
-            <label class="list-item"><input type="checkbox"> 20171012_2.jpg</label>
-            <label class="list-item"><input type="checkbox"> 20171012_3.png</label>
-            <label class="list-item"><input type="checkbox"> 20171012_4.jpg</label>
-            <label class="list-item"><input type="checkbox"> 20171012_5.jpg</label>
-            <label class="list-item"><input type="checkbox"> 20171012_6.png</label>
-            <label class="list-item"><input type="checkbox"> 20171012_7.jpg</label>
-            <label class="list-item"><input type="checkbox"> 20171012_8.jpg</label>
+    <div class="preview-container">
+        <div class="header">
+            <span class="header-title">預覽</span>
+            <button class="spec-btn" id="toggleBtn">查看資訊</button>
         </div>
-        <div class="left-footer">
-            數量 : <span id="selectedCount">0</span> / 100
-        </div>
-    </div>
-
-    <div class="right-panel">
-        <div class="right-header">
-            <span style="font-size: 13px;">預覽</span>
-            <button class="special-btn" id="infoBtn">查看資訊</button>
-        </div>
-        <div class="preview-content">
-            <div class="image-box">
-                <span style="color:#707070">預覽圖片區域 (450x240)</span>
-            </div>
+        
+        <div class="content-area">
+            <div class="image-box"></div>
+            
             <div class="info-panel" id="infoPanel">
-                <div>修改日期 : 2017/10/12</div>
-                <div>類別 : JPG</div>
-                <div>大小 : 466.97KB</div>
-                <div style="word-break: break-all;">路徑 : C:\DesignCenter\Sample\Image.jpg</div>
+                <div class="info-row">修改日期 : 2017/10/12</div>
+                <div class="info-row">類別 : JPG</div>
+                <div class="info-row">大小 : 466.97KB</div>
+                <div class="info-row">路徑 : \\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // 1. 動態計數功能
-    const checkboxes = document.querySelectorAll('#fileList input[type="checkbox"]');
-    const countDisplay = document.getElementById('selectedCount');
+    <script>
+        const toggleBtn = document.getElementById('toggleBtn');
+        const infoPanel = document.getElementById('infoPanel');
 
-    function updateCount() {
-        const checkedCount = document.querySelectorAll('#fileList input[type="checkbox"]:checked').length;
-        countDisplay.textContent = checkedCount;
-    }
-
-    // 監聽每一個 checkbox 的變化
-    checkboxes.forEach(box => {
-        box.addEventListener('change', updateCount);
-    });
-
-    // 初始化計數
-    updateCount();
-
-    // 2. 按鈕切換資訊功能
-    const infoBtn = document.getElementById('infoBtn');
-    const infoPanel = document.getElementById('infoPanel');
-
-    infoBtn.addEventListener('click', () => {
-        const isVisible = infoPanel.classList.toggle('visible');
-        infoBtn.textContent = isVisible ? '收起資訊' : '查看資訊';
-    });
-</script>
+        // 監聽按鈕點擊事件
+        toggleBtn.addEventListener('click', () => {
+            // 切換面板的顯示與隱藏
+            const isVisible = infoPanel.classList.toggle('visible');
+            
+            // 根據面板狀態更改按鈕文字 (還原設計圖右下角的收起狀態)
+            if (isVisible) {
+                toggleBtn.textContent = '收起資訊';
+            } else {
+                toggleBtn.textContent = '查看資訊';
+            }
+        });
+    </script>
 
 </body>
 </html>
