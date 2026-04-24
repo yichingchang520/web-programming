@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineer & Designer Cooperation - Button Spec</title>
+    <title>Engineer & Designer Cooperation - Scrolling Info</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -15,7 +15,6 @@
             margin: 0;
         }
 
-        /* 根據設計圖，右側面板總寬度為 496px */
         .preview-container {
             width: 496px; 
             background: #ffffff;
@@ -23,9 +22,11 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
+            /* 讓整個卡片外觀有圓角，稍微現代一點 (選用) */
+            border-radius: 4px;
+            overflow: hidden; 
         }
 
-        /* 標題列：高度 35px, 背景 #f6f6f6 */
         .header {
             height: 35px;
             background-color: #f6f6f6;
@@ -34,6 +35,7 @@
             justify-content: space-between;
             padding: 0 15px; 
             border-bottom: 1px solid #eaeaea;
+            flex-shrink: 0; /* 確保標題列不會因為內容過多而被壓縮 */
         }
 
         .header-title {
@@ -42,16 +44,15 @@
             color: #707070;
         }
 
-        /* --- 精確還原設計師標定的按鈕 (Try this) --- */
         .spec-btn {
-            height: 22px;              /* size: h22 */
-            border-radius: 8px;        /* size: R8 */
-            background-color: #ffffff; /* background: #ffffff */
-            border: 1px solid #2f2f2f; /* outline: 1px #2f2f2f */
-            font-family: 'Roboto', sans-serif; /* Font style: Roboto Regular */
-            font-size: 13px;           /* Font size: 13px */
-            color: #2f2f2f;            /* Color: #2f2f2f */
-            padding: 0 18px;           /* 依據按鈕內的 '18' 標示推測的左右內距 */
+            height: 22px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            border: 1px solid #2f2f2f;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            color: #2f2f2f;
+            padding: 0 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -64,32 +65,50 @@
             background-color: #f0f0f0;
         }
 
-        /* 內容區塊與圖片間距：左 20px、右 26px */
+        /* --- 捲軸功能設定區 --- */
         .content-area {
+            /* 設定一個固定高度。240(圖片) + 20(上距) + 20(下距保留) = 280px */
+            height: 280px; 
+            overflow-y: auto; /* 內容超過高度時，自動顯示垂直捲軸 */
             padding-top: 20px;
             padding-left: 20px;
-            padding-right: 26px;
             padding-bottom: 20px;
+            /* 右側不特別寫死 26px，讓捲軸自然佔用空間 */
+            padding-right: 10px; 
         }
 
-        /* 圖片範圍：450x240 */
+        /* 自訂捲軸樣式，讓它更美觀 (Webkit 瀏覽器適用) */
+        .content-area::-webkit-scrollbar {
+            width: 8px;
+        }
+        .content-area::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+            border-radius: 4px;
+        }
+        .content-area::-webkit-scrollbar-thumb {
+            background: #c1c1c1; 
+            border-radius: 4px;
+        }
+        .content-area::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8; 
+        }
+
         .image-box {
             width: 450px;
             height: 240px;
+            flex-shrink: 0; /* 【關鍵】防止圖片區塊在出現捲軸時被壓縮變形 */
             background-image: url('https://images.unsplash.com/photo-1506744626753-1fa44df14dd4?w=450&h=240&fit=crop');
             background-size: cover;
             background-position: center;
         }
 
-        /* 展開資訊面板 */
         .info-panel {
-            margin-top: 10px; /* 圖片與文字的間距標示為 10 */
-            display: none;    /* 預設隱藏 */
+            margin-top: 10px; 
+            display: none;    
             flex-direction: column;
-            margin-bottom: 10px; /* 底部 Min 10 標示 */
+            padding-bottom: 10px; /* 確保滑到底部時，文字不會貼齊邊緣 */
         }
 
-        /* 當加入 .visible 類別時顯示面板 */
         .info-panel.visible {
             display: flex;
         }
@@ -98,7 +117,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
             color: #707070;
-            margin-bottom: 6px; /* 每行之間的間距標示為 6 */
+            margin-bottom: 6px; 
             word-break: break-all;
         }
 
@@ -119,10 +138,10 @@
             <div class="image-box"></div>
             
             <div class="info-panel" id="infoPanel">
-                <div class="info-row">修改日期 : </div>
-                <div class="info-row">類別 : </div>
-                <div class="info-row">大小 : </div>
-                <div class="info-row">路徑 : </div>
+                <div class="info-row">修改日期 : 2017/10/12</div>
+                <div class="info-row">類別 : JPG</div>
+                <div class="info-row">大小 : 466.97KB</div>
+                <div class="info-row">路徑 : \\designcenter.qnap.com.tw\DesignCenter\PM、RD 請進入\WEB\Stations\A_Image2PDF\v2\sample</div>
             </div>
         </div>
     </div>
@@ -131,12 +150,9 @@
         const toggleBtn = document.getElementById('toggleBtn');
         const infoPanel = document.getElementById('infoPanel');
 
-        // 監聽按鈕點擊事件
         toggleBtn.addEventListener('click', () => {
-            // 切換面板的顯示與隱藏
             const isVisible = infoPanel.classList.toggle('visible');
             
-            // 根據面板狀態更改按鈕文字 (還原設計圖右下角的收起狀態)
             if (isVisible) {
                 toggleBtn.textContent = '收起資訊';
             } else {
