@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <title>Button Event Practice</title>
+</head>
+<body>
+
+    <h1 id="targetText">Hello</h1>
+    
+    <button id="actionBtn">Button</button>
+
+    <script>
+        // 取得 DOM 元素
+        const textElement = document.getElementById('targetText');
+        const btnElement = document.getElementById('actionBtn');
+
+        // 事件 1：當滑鼠移入按鈕時 (Mouse over)，改變文字顏色為洋紅色
+        btnElement.addEventListener('mouseover', function() {
+            textElement.style.color = 'magenta';
+        });
+
+        // 事件 2：當滑鼠點擊按鈕時 (Mouse click)，改變文字內容
+        btnElement.addEventListener('click', function() {
+            textElement.innerText = 'Mouse Click';
+        });
+    </script>
+
+</body>
+</html>
