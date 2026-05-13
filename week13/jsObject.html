@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>JavaScript Object Operations</h2>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // 1. Define the object from unnamed-2.png
+        var Person = {
+            firstName: "Tony",
+            lastName: "Lee",
+            age: 50,
+            eyeColor: "Blue"
+        };
+
+        // Reference to the output div
+        var outputDiv = document.getElementById("output");
+
+        // 2. List all initial properties
+        outputDiv.innerHTML += "<h3>Initial Properties:</h3>";
+        outputDiv.innerHTML += "<ul>";
+        for (var key in Person) {
+            outputDiv.innerHTML += "<li><strong>" + key + ":</strong> " + Person[key] + "</li>";
+        }
+        outputDiv.innerHTML += "</ul>";
+
+        // 3. Delete the age property
+        delete Person.age;
+        outputDiv.innerHTML += "<p><em>* The 'age' property has been deleted. *</em></p>";
+
+        // 4. Print the object after deletion
+        outputDiv.innerHTML += "<h3>Object After Deletion:</h3>";
+        outputDiv.innerHTML += "<pre>" + JSON.stringify(Person, null, 4) + "</pre>";
+    </script>
+
+</body>
+</html>
