@@ -8,18 +8,18 @@
 let radius = 4;
 
 function calcCircumfrence(){
-   return radius * 2 * math.pi;
+   return radius * 2 * Math.PI;
 }
-calcCircumfrence()
+let circum = calcCircumfrence();
 
-document.getElementById("demo").innerHTML = "The circumfrence is: " + radius;
+document.getElementById("demo").innerHTML = "The circumfrence is: " + circum;
 
 function calcArea(){
-   return radius * radius * math.pi
+   return radius * radius * Math.PI
 }
-calcArea()
+let area = calcArea();
 
-document.getElementById("demo").innerHTML = "The area is: " + radius;
+document.getElementById("demo").innerHTML = "<br>The area is: " + area;
 
 </script>
 
