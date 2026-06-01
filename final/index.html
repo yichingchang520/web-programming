@@ -23,24 +23,38 @@
             line-height: 1.6;
         }
 
-        /* 1. 頂部導航與跑馬燈 Banner */
+        /* 1. 頂部導航、標題與宗旨 */
         header {
             background-color: #000;
             border-bottom: 1px solid var(--border-color);
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 20px; /* 增加上下間距讓畫面呼吸 */
         }
-        
+
         header h1 {
             margin: 0;
-            font-size: 28px;
+            font-size: 32px;
             letter-spacing: 2px;
         }
 
-        header p {
+        header .subtitle {
             margin: 5px 0 0 0;
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 16px;
+        }
+
+        /* 新增的宗旨宣言區塊 */
+        .mission-statement {
+            max-width: 600px;
+            margin: 20px auto 0 auto;
+            padding: 15px 20px;
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--alert-red);
+            color: #cccccc;
+            font-size: 15px;
+            text-align: left;
+            line-height: 1.8;
+            border-radius: 0 4px 4px 0;
         }
 
         .marquee-container {
@@ -170,17 +184,26 @@
 </head>
 <body>
 
-    <!-- 1. 頂部導航與跑馬燈 Banner -->
+    <!-- 1. 頂部導航與宗旨區塊 -->
     <header>
         <h1>法感實驗室</h1>
-        <p>The Justice Bridge - 從心碎到制度修補</p>
+        <p class="subtitle">The Justice Bridge - 從心碎到制度修補</p>
+        
+        <!-- 新增的宗旨區塊 -->
+        <div class="mission-statement">
+            <strong>我們的宗旨：</strong><br>
+            對抗社會遺忘，量化民意推動制度改革。<br>
+            將憤怒轉化為理性數據，讓每一次心碎都能成為修補社會安全網的基石。
+        </div>
     </header>
+
+    <!-- 2. 跑馬燈 Banner (移除了宗旨，專注於最新動態) -->
     <div class="marquee-container">
         <div class="marquee-content">
-            宗旨：對抗社會遺忘，量化民意推動制度改革。 | 最新動態：2023 國中割喉案，目前《少年事件處理法》修法進度停滯於一讀。 | 請選擇案件進入虛擬法庭，發出你的聲音。
+            【最新動態】2023 國中割喉案，目前《少年事件處理法》修法進度停滯於一讀。 | 請選擇下方案件進入虛擬法庭，發出你的聲音。
         </div>
     </div>
-
+    
     <!-- 主體佈局 -->
     <div class="container">
         
