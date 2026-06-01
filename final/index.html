@@ -1,8 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
-<img src="" width="" height="">
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>法感實驗室 The Justice Bridge</title>
+    <style>
+        /* 基礎全域設定：採用深色肅穆風格 */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #f4f4f4;
+            --text-muted: #aaaaaa;
+            --alert-red: #d32f2f;
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* 1. 頂部導航與跑馬燈 Banner */
+        header {
+            background-color: #000;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .marquee-container {
+            background-color: var(--alert-red);
+            color: white;
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* 主體佈局：左側計時器、右側案件列表 */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            gap: 40px;
+        }
+
+        /* 2. 左下方：社會計時器 (Reform Timer) */
+        .timer-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .timer-section h2 {
+            font-size: 20px;
+            border-bottom: 2px solid var(--alert-red);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .timer-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timer-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .days-count {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--alert-red);
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .timer-label {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* 3. 右方：案件概覽 (Case Feed) */
+        .case-section {
+            flex: 2;
+        }
+
+        .case-section h2 {
+            font-size: 20px;
+            border-bottom: 2px solid var(--text-muted);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .case-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .case-card:hover {
+            border-left-color: var(--alert-red);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .case-title {
+            font-size: 22px;
+            margin: 0 0 10px 0;
+        }
+
+        .case-summary {
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+        }
+
+        .case-meta {
+            font-size: 13px;
+            color: var(--alert-red);
+            font-weight: bold;
+        }
+
+        /* 響應式設計：在手機螢幕上自動改為上下排列 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
 <body>
 
-    
+    <!-- 1. 頂部導航與跑馬燈 Banner -->
+    <header>
+        <h1>法感實驗室</h1>
+        <p>The Justice Bridge - 從心碎到制度修補</p>
+    </header>
+    <div class="marquee-container">
+        <div class="marquee-content">
+            宗旨：對抗社會遺忘，量化民意推動制度改革。 | 最新動態：2023 國中割喉案，目前《少年事件處理法》修法進度停滯於一讀。 | 請選擇案件進入虛擬法庭，發出你的聲音。
+        </div>
+    </div>
+
+    <!-- 主體佈局 -->
+    <div class="container">
+        
+        <!-- 2. 左下方：社會計時器 (Reform Timer) -->
+        <aside class="timer-section">
+            <h2>社會計時器 Reform Timer</h2>
+            
+            <div class="timer-card">
+                <h3>保母虐童案</h3>
+                <div class="timer-label">距離案發已過</div>
+                <!-- 這裡的 id 讓後面的 JavaScript 可以自動計算天數 -->
+                <div class="days-count" id="timer-nanny">計算中...</div>
+                <div class="timer-label">天</div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">承諾修訂《居家托育訪視條例》</p>
+            </div>
+
+            <div class="timer-card">
+                <h3>國中校園暴力案</h3>
+                <div class="timer-label">距離案發已過</div>
+                <div class="days-count" id="timer-school">計算中...</div>
+                <div class="timer-label">天</div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">《少事法》檢討會議進度：延滯</p>
+            </div>
+        </aside>
+
+        <!-- 3. 右方：案件概覽 (Case Feed) -->
+        <main class="case-section">
+            <h2>案件概覽 Case Feed (點擊進入虛擬法庭)</h2>
+            
+            <!-- 案件卡片 1：超連結指向 case1.html -->
+            <a href="case_nanny.html" class="case-card">
+                <h3 class="case-title">1歲男童受虐致死案（保母案）</h3>
+                <p class="case-summary">
+                    一名一歲男童經兒福聯盟轉介交由合格保母照顧，卻遭到長期施暴不幸離世。此案件暴露出社會安全網的訪視制度與保母評鑑機制的嚴重漏洞。
+                </p>
+                <div class="case-meta">法律脫節指數：8.5/10 ➜ 點擊進入虛擬法庭</div>
+            </a>
+
+            <!-- 案件卡片 2：超連結指向 case2.html -->
+            <a href="case_school.html" class="case-card">
+                <h3 class="case-title">國三生遭割頸命案</h3>
+                <p class="case-summary">
+                    校園內因口角引發的致命暴力事件。加害者因未成年受到《少年事件處理法》保護，引發社會對於「法律是否過度保護未成年加害者而忽視被害人權益」的巨大爭議。
+                </p>
+                <div class="case-meta">法律脫節指數：9.1/10 ➜ 點擊進入虛擬法庭</div>
+            </a>
+            
+        </main>
+    </div>
+
+    <!-- JavaScript：處理自動計算經過天數的邏輯 -->
+    <script>
+        // 設定案件發生日期
+        const nannyCaseDate = new Date('2023-12-24'); // 假設的保母案案發日期
+        const schoolCaseDate = new Date('2023-12-25'); // 國中案案發日期
+
+        // 計算天數差的函數
+        function calculateDaysSince(pastDate) {
+            const today = new Date();
+            const differenceInTime = today.getTime() - pastDate.getTime();
+            // 將毫秒轉換為天數
+            return Math.floor(differenceInTime / (1000 * 3600 * 24));
+        }
+
+        // 將計算結果寫入 HTML 中
+        document.getElementById('timer-nanny').innerText = calculateDaysSince(nannyCaseDate);
+        document.getElementById('timer-school').innerText = calculateDaysSince(schoolCaseDate);
+    </script>
 </body>
 </html>
