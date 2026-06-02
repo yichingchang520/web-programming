@@ -251,10 +251,14 @@
 
         // 切換步驟的函數
         function nextStep(stepNumber) {
+            // 隱藏所有步驟
             document.querySelectorAll('.step').forEach(function(el) {
                 el.classList.remove('active');
             });
+            // 顯示目標步驟
             document.getElementById('step-' + stepNumber).classList.add('active');
+            
+            // 將頁面滾動到最上方
             window.scrollTo(0, 0);
         }
 
@@ -284,15 +288,20 @@
                 reflection: reflectionText
             };
 
-            // 使用 fetch 發送 POST 請求
-            fetch('http://127.0.0.1:5000/api/submit_verdict', {
+            // 【修改重點】改為相對路徑 '/api/submit_verdict'
+            fetch('/api/submit_verdict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("HTTP error " + response.status);
+                }
+                return response.json();
+            })
             .then(data => {
                 if(data.status === "success") {
                     // 資料成功寫入資料庫後，才進入成功感謝頁面
