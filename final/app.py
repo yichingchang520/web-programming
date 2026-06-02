@@ -67,9 +67,9 @@ def submit_verdict():
         return jsonify({"status": "error", "message": "伺服器發生錯誤，請稍後再試"}), 500
 
 # (選擇性) 如果你想透過 Flask 直接渲染 HTML 頁面，可以加上這個路由
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     # 啟動 Flask 伺服器，開啟 debug 模式方便除錯
