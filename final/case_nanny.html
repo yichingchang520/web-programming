@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案件詳情：1歲男童受虐致死案 - 法感實驗室</title>
+    <style>
+        /* 基礎全域設定：延續主頁的深色肅穆風格 */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #f4f4f4;
+            --text-muted: #aaaaaa;
+            --alert-red: #d32f2f;
+            --border-color: #333333;
+            --accent-blue: #4fc3f7;
+            --warning-orange: #ff9800;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* 頂部導航 */
+        header {
+            background-color: #000;
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* 案件標題區塊 */
+        .case-header {
+            max-width: 800px;
+            margin: 40px auto 20px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .case-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .gap-index-badge {
+            display: inline-block;
+            background-color: var(--alert-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* 文章主體內容 */
+        article {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border-top: 4px solid var(--alert-red);
+        }
+
+        article h3 {
+            font-size: 22px;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        
+        article h4 {
+            font-size: 18px;
+            color: var(--accent-blue);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        article p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* 引用區塊設計 */
+        blockquote {
+            background-color: #2a2a2a;
+            border-left: 4px solid var(--warning-orange);
+            margin: 20px 0;
+            padding: 15px 20px;
+            border-radius: 0 4px 4px 0;
+            color: #eeeeee;
+        }
+
+        ul {
+            color: #cccccc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* 虛擬法庭進入按鈕 */
+        .action-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .btn-enter-court {
+            display: inline-block;
+            background-color: var(--alert-red);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+        }
+
+        .btn-enter-court:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            article {
+                padding: 20px;
+                margin: 0 15px 40px 15px;
+            }
+            .case-header h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導航 -->
+    <header>
+        <a href="index.html" class="back-link">← 返回首頁</a>
+        <h1>法感實驗室</h1>
+        <div style="width: 70px;"></div>
+    </header>
+
+    <!-- 案件標題區 -->
+    <div class="case-header">
+        <h2>1歲男童受虐致死案（保母案）</h2>
+        <div class="gap-index-badge">法律脫節指數：8.5 / 10</div>
+        <p style="color: var(--text-muted);">本案暴露出兒童福利機構、社工訪視制度及寄養監督機制的全面失靈，引發社會對「凌虐致死」量刑標準的激烈辯論。</p>
+    </div>
+
+    <!-- 案件詳細內容 -->
+    <article>
+        
+        <h3>事件背景與經過</h3>
+        <p>死者男童化名剴剴，於2022年2月出生。因生父失聯、生母入監服刑，在新北市政府社會局介入下，委託兒童福利聯盟基金會安排寄養。自2023年9月起，居住於臺北市的劉彩萱及劉若琳姊妹成為主要照護人，並由兒福聯盟社工陳尚潔負責定期訪視。</p>
+        <p>2023年12月24日，剴剴因呼吸困難被送醫後不治。保母與社工原稱其為溢奶，但檢方解剖發現剴剴身上有多處瘀傷與骨折、牙齒斷裂、指甲被拔光、生殖器燒灼等嚴重外傷，且有營養不良情形。死因經確認為<strong>「橫紋肌溶解」</strong>。</p>
+        
+        <blockquote>
+            透過還原保母手機對話與外籍看護提供的影音檔，檢警查出剴剴生前曾遭脫衣罰站、餵食廚餘、冬天洗冷水澡、身體被強行對折塞入水桶。在保母家短短 114 天內被凌虐至遍體鱗傷。
+        </blockquote>
+
+        <h3>司法程序與法庭攻防</h3>
+        <p>2024年4月，臺北地檢署依《刑法》「凌虐兒童致死」、「成年人故意傷害兒童致死」及「妨礙自由致死」等罪名起訴劉氏姊妹。</p>
+
+        <h4>國民法官審理程序 (2025年4月 - 5月)</h4>
+        <ul>
+            <li><strong>外籍看護與醫師作證：</strong> 關鍵證人Mira證實剴剴遭長期罰站與餵食廚餘。台大兒醫呂立醫師以<strong>「教科書等級的凌虐」</strong>形容其身上42處密集傷勢；精神科醫師指出剴剴在受虐期間罹患嚴重的創傷後壓力症與適應障礙。</li>
+            <li><strong>策略性認罪與推諉：</strong> 審理中段，劉彩萱改口對部分傷害認罪，但<strong>否認有殺人的故意</strong>（若無法認定殺人犯意，最重僅處無期徒刑，無死刑可判）。劉若琳則全程辯稱自己是被動角色，企圖將責任推給姊姊。</li>
+            <li><strong>家屬與檢方沉痛呼籲：</strong> 剴剴外婆當庭痛哭，拒絕和解與民事求償。檢方痛批兩姊妹為共同正犯，劉彩萱如「蜘蛛」般持續施虐，甚至在庭上裝病博取同情，建請判處無期徒刑。</li>
+        </ul>
+
+        <h4>判決結果</h4>
+        <p><strong>一審（2025年5月13日）：</strong>台北地方法院依成年人故意對兒童犯傷害致人於死、施以凌虐而致死等罪，判處劉彩萱無期徒刑、劉若琳18年有期徒刑。<br>
+        <strong>二審（2026年1月27日）：</strong>台灣高等法院駁回上訴，維持一審判決。</p>
+
+        <h3>兒福聯盟與社工爭議</h3>
+        <p>兒福聯盟對外聲稱保母審核符合程序，但董事長要求社工「勇敢面對社會」的言論被批推卸責任，導致執行長辭職。2026年4月，負責訪視的社工陳尚潔因盲目相信保母、錯失救援機會，且犯後否認犯行，遭台北地院依<strong>過失致死罪</strong>判處有期徒刑2年，不予緩刑。</p>
+
+        <h3>政策檢討與社會行動</h3>
+        <p>此案促使政府啟動多項改革，監察院亦對衛福部、雙北市政府提出糾正案，指出社工缺乏敏感度及監督流於形式等嚴重缺失。</p>
+        <ul>
+            <li><strong>護兒大遊行：</strong> 2025年5月10日，上千民眾於凱道發起遊行，提出「兒虐零容忍」、「兒虐重判不假釋」等訴求，並遞交超過8萬份連署書。</li>
+            <li><strong>刑法修訂：</strong> 2025年7月18日，立法院三讀通過增訂《刑法》第272條之1與修訂第286條，針對虐殺未滿7歲兒童者，最高可處死刑或無期徒刑。</li>
+        </ul>
+
+        <!-- 虛擬法庭進入區塊 -->
+        <div class="action-section">
+            <p>面對「凌虐致死」與「殺人犯意」的法律界線，如果是你，會如何判決？</p>
+            <a href="court_nanny.html" class="btn-enter-court">進入虛擬法庭：做出你的判決</a>
+        </div>
+
+    </article>
+
+</body>
+</html>
