@@ -68,10 +68,32 @@ def submit_verdict():
         print(f"Error: {e}")
         return jsonify({"status": "error", "message": "伺服器發生錯誤，請稍後再試"}), 500
 
-# (選擇性) 如果你想透過 Flask 直接渲染 HTML 頁面，可以加上這個路由
+# ======= 網頁路由 (GET 請求) =======
+
+# 1. 首頁
 @app.route('/')
 def index():
     return render_template('index.html')
+
+# 2. 虐童案：案件詳情頁
+@app.route('/case_nanny.html')
+def case_nanny():
+    return render_template('case_nanny.html')
+
+# 3. 虐童案：虛擬法庭頁
+@app.route('/court_nanny.html')
+def court_nanny():
+    return render_template('court_nanny.html')
+
+# 4. 國中割頸案：案件詳情頁 
+@app.route('/case_school.html')
+def case_school():
+    return render_template('case_school.html')
+
+# 5. 國中割頸案：虛擬法庭頁
+@app.route('/court_school.html')
+def court_school():
+    return render_template('court_school.html')
 
 if __name__ == '__main__':
     # 加上 host='0.0.0.0'，這是雲端環境必備的設定
