@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>案件詳情：國三生遭割頸命案 - 法感實驗室</title>
+    <style>
+        /* 基礎全域設定：延續主頁的深色肅穆風格 */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #f4f4f4;
+            --text-muted: #aaaaaa;
+            --alert-red: #d32f2f;
+            --border-color: #333333;
+            --accent-blue: #4fc3f7;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* 頂部導航 */
+        header {
+            background-color: #000;
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--text-main);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* 案件標題區塊 */
+        .case-header {
+            max-width: 800px;
+            margin: 40px auto 20px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .case-header h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .gap-index-badge {
+            display: inline-block;
+            background-color: var(--alert-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* 文章主體內容 */
+        article {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border-top: 4px solid var(--alert-red);
+        }
+
+        article h3 {
+            font-size: 22px;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        article p {
+            color: #cccccc;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* 引用區塊設計（用於聲明或重要引言） */
+        blockquote {
+            background-color: #2a2a2a;
+            border-left: 4px solid var(--accent-blue);
+            margin: 20px 0;
+            padding: 15px 20px;
+            border-radius: 0 4px 4px 0;
+            color: #eeeeee;
+            font-style: italic;
+        }
+
+        ul {
+            color: #cccccc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        /* 虛擬法庭進入按鈕 */
+        .action-section {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .btn-enter-court {
+            display: inline-block;
+            background-color: var(--alert-red);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+        }
+
+        .btn-enter-court:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            article {
+                padding: 20px;
+                margin: 0 15px 40px 15px;
+            }
+            .case-header h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部導航 -->
+    <header>
+        <a href="index.html" class="back-link">← 返回首頁</a>
+        <h1>法感實驗室</h1>
+        <div style="width: 70px;"></div> <!-- 平衡版面用的空白區塊 -->
+    </header>
+
+    <!-- 案件標題區 -->
+    <div class="case-header">
+        <h2>國三生遭割頸命案 (2023)</h2>
+        <div class="gap-index-badge">法律脫節指數：9.1 / 10</div>
+        <p style="color: var(--text-muted);">本案暴露出《少年事件處理法》與社會期望的巨大落差，引發對司法過度保護加害者的強烈爭議。</p>
+    </div>
+
+    <!-- 案件詳細內容 -->
+    <article>
+        
+        <h3>事發經過</h3>
+        <p>2023年12月25日中午午餐時間，臺灣新北市土城區的國民中學發生一起命案。林姓女學生前往楊姓男學生的班級找另一名女同學聊天。楊生因林生離開班級時關門力道過大，要求林生愛惜自班公物。林生心生不滿，便回班上找「乾哥」郭生以及其他同學助陣，郭生一行人與楊生發生口角，而後演變成肢體衝突，過程中郭生拿出預藏好的彈簧刀攻擊楊生，致其頸部、胸部連中10刀造成大量失血失去意識。</p>
+        <p>新北市政府消防局救護人員抵達現場時，楊生已無呼吸心跳，隨後送往亞東紀念醫院緊急裝上葉克膜並進行手術。楊生在治療過程中一度恢復生命跡象，但最終於26日晚間仍宣告不治。</p>
+
+        <h3>調查與起訴過程</h3>
+        <p>案發當晚，警方依「殺人未遂罪」將郭生與涉嫌教唆的林生移送少年法庭。法官審理後裁定行兇的郭生收容、林生交由監護人責付。然而，因林生疑有使用手機串證行為，警方對新北地院請求核發同行書和搜索票卻遭到兩次駁回。直至2024年1月，媒體廣泛報導後，少年法庭才裁定將林生收容。</p>
+        <p>2024年4月12日，檢察官認為2名皆有滅證、勾串、逃亡之虞，向法院聲請羈押禁見獲准。5月9日，新北地檢署檢察官正式依《中華民國刑法》「殺人罪」起訴林生和郭生，但因《少年事件處理法》規定，本案不提供起訴書等資料。</p>
+
+        <h3>判決結果</h3>
+        <p><strong>一審判決（2024年9月30日）：</strong>臺灣新北地方法院宣判，郭生處有期徒刑9年、林生處有期徒刑8年。檢方認為量刑過輕提出上訴。</p>
+        <p><strong>二審判決（2025年12月23日）：</strong>臺灣高等法院撤銷一審判決，改判郭生有期徒刑12年、林生有期徒刑11年。被害學生家屬對結果表示不滿，於法庭外抗議司法過度保護加害者。</p>
+        <p><strong>最高法院定讞（2026年2月12日）：</strong>最高法院駁回上訴，全案定讞。</p>
+
+        <h3>各界反應與爭議</h3>
+        <p>此事件引發了社會各界的強烈反應。根據媒體報導，犯案的郭生有傷害罪前科，且自稱具幫派背景。總統及各黨派政治人物皆對此事件表達哀悼並提出檢討校安機制的訴求。</p>
+        
+        <h4>受害者家屬的沉痛控訴</h4>
+        <p>2026年2月13日，被害人楊姓學生的雙親召開記者會，發表長達3,695字的聲明稿，對司法程序表達強烈抗議：</p>
+        <ul>
+            <li><strong>抨擊承審法官言行與少事法制度盲區：</strong>家屬點名二審審判長在法庭上公然替加害者精算成年後的假釋門檻，並質疑《少年事件處理法》排除國民法官參與審理，擔憂加害者最快4至5年即可申請假釋，恐引發鼓勵少年犯罪的「破窗效應」。</li>
+            <li><strong>質疑修復式司法與法庭攻防爭議：</strong>家屬早已明確拒絕修復式司法，並指控一審審判長罔顧證人安全，讓加害者與秘密證人當庭對質。</li>
+            <li><strong>揭露加害者行徑與卸責：</strong>加害者犯案後毫無悔意，甚至曾於社群平台發布被害人急救照片並標註「最美的風景」。民事賠償方面，加害者雙親僅給付20萬元便以無還款能力推諉，而加害者的律師費用卻由法扶與納稅錢支應，令家屬感到極度荒謬。</li>
+            <li><strong>呼籲重視多數學生人權：</strong>現行法規過度保障特定「問題學生」的人權，卻嚴重剝奪了多數一般學生的安全與生命權。</li>
+        </ul>
+
+        <h4>社會組織與後續效應</h4>
+        <p>臺灣廢除死刑推動聯盟呼籲「以暴不能制暴」，強調重刑化無助減少犯罪。然而，2026年4月海外YouTuber發佈詳細案情影片後，短短3天吸引300萬點閱率，再度引發社會輿論對法官輕判的強烈質疑。</p>
+
+        <!-- 虛擬法庭進入區塊 -->
+        <div class="action-section">
+            <p>在了解完整的案情與現行法律的判決後，你的「法感」告訴你什麼？</p>
+            <a href="court_school.html" class="btn-enter-court">進入虛擬法庭：做出你的判決</a>
+        </div>
+
+    </article>
+
+</body>
+</html>
