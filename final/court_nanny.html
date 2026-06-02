@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>虛擬法庭：剴剴案 - 法感實驗室</title>
+    <style>
+        /* 基礎全域設定 */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --text-main: #f4f4f4;
+            --alert-red: #d32f2f;
+            --accent-blue: #4fc3f7;
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'PingFang TC', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            background-color: #000;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            box-sizing: border-box;
+        }
+
+        .back-link {
+            color: #aaaaaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* 遊戲化容器 */
+        .court-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 40px auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 步驟隱藏與顯示控制 */
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* NPC 對話框樣式 */
+        .npc-dialogue {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-blue);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .npc-name {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--accent-blue);
+            color: #000;
+            padding: 2px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .npc-text {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* 按鈕樣式 */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-main);
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .btn-primary {
+            background-color: var(--alert-red);
+            border: none;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #b71c1c;
+            color: white;
+        }
+
+        /* 結果對比區塊 */
+        .result-box {
+            background-color: #1a1a1a;
+            border-left: 5px solid var(--alert-red);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .result-title {
+            color: var(--alert-red);
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* 反思表單 */
+        textarea {
+            width: 100%;
+            height: 150px;
+            background-color: #111;
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="case_nanny.html" class="back-link">← 放棄審理，返回案件詳情</a>
+    </header>
+
+    <div class="court-container">
+
+        <!-- Step 1: NPC 法理引導 -->
+        <div id="step-1" class="step active">
+            <div class="npc-dialogue">
+                <div class="npc-name">系統導引員 AI</div>
+                <div class="npc-text">
+                    <p>法官閣下，歡迎來到虛擬法庭。在您敲下法槌前，我們必須先釐清法律的界線。</p>
+                    <p>在本案中，保母的手段極其殘酷。但根據現行法律，若要判處最高刑罰<strong>「死刑」</strong>，檢方必須提出確鑿證據證明被告有<strong>「直接殺人的故意」</strong>（也就是她打從一開始就想殺死這名幼童）。</p>
+                    <p>如果您認為她只是「凌虐發洩，沒有預謀殺人」，那依法只能以「凌虐兒童致死罪」論處，其最高刑期上限為<strong>無期徒刑</strong>。</p>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="nextStep(2)">我了解法律限制了，開始量刑</button>
+        </div>
+
+        <!-- Step 2: 進行量刑 -->
+        <div id="step-2" class="step">
+            <div class="npc-dialogue">
+                <div class="npc-name">系統導引員 AI</div>
+                <div class="npc-text">
+                    <p>現在，請拋開現實中的判決。綜合保母凌虐114天、犯後企圖掩蓋並推卸責任等行為，您的「法感」認為主嫌劉彩萱應該獲得何種刑罰？</p>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn" onclick="makeVerdict('有期徒刑 10-15 年 (給予教化機會)')">有期徒刑 10-15 年 (給予教化機會)</button>
+                <button class="btn" onclick="makeVerdict('有期徒刑 18 年 (與共犯妹妹相同)')">有期徒刑 18 年 (與共犯妹妹相同)</button>
+                <button class="btn" onclick="makeVerdict('無期徒刑 (終身隔離，但未來有可能假釋)')">無期徒刑 (終身隔離，但未來有可能假釋)</button>
+                <button class="btn" onclick="makeVerdict('死刑 (永久剝奪生命)')">死刑 (永久剝奪生命)</button>
+            </div>
+        </div>
+
+        <!-- Step 3: 判決落差與反思 -->
+        <div id="step-3" class="step">
+            <div class="npc-dialogue">
+                <div class="npc-name">系統導引員 AI</div>
+                <div class="npc-text">
+                    <p>休庭。您的判決已經記錄。</p>
+                </div>
+            </div>
+
+            <div class="result-box">
+                <div class="result-title">判決落差檢視 (Justice Gap)</div>
+                <p><strong>您的期望判決：</strong><span id="user-verdict" style="color: var(--accent-blue); font-weight: bold;"></span></p>
+                <p><strong>現實一審判決：</strong>無期徒刑</p>
+                <hr style="border-color: #333; margin: 15px 0;">
+                <p style="font-size: 14px; color: #aaa;">法理現實：由於檢方無法證明被告有明確的「殺人犯意」，法官最終依《刑法》第286條「凌虐兒童致死罪」的上限，判處無期徒刑。若不修法，這已是法官在此罪名下能判的最重刑罰。</p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3>遞交反思白皮書</h3>
+                <p style="font-size: 14px; color: #aaa;">請告訴我們，您認為這個落差是合理的嗎？我們該如何修改制度（例如：兒虐致死應視同殺人、或加重刑罰下限）？您的意見將被轉化為量化民意。</p>
+                <textarea placeholder="例如：我認為只要是凌虐幼童致死，不論是否有直接殺意，法律的最高刑期都應該包含死刑..."></textarea>
+                <button class="btn btn-primary" onclick="submitReflection()">正式提交我的意見</button>
+            </div>
+        </div>
+
+        <!-- Step 4: 完成感謝 -->
+        <div id="step-4" class="step">
+            <div class="npc-dialogue" style="text-align: center; border-color: #4caf50;">
+                <h2 style="color: #4caf50;">提交成功！</h2>
+                <p>您的法感數據已經被記錄。</p>
+                <p>拒絕遺忘，是改變社會的第一步。感謝您為修補社會安全網貢獻了一份力量。</p>
+                <a href="index.html" class="btn btn-primary" style="display: inline-block; margin-top: 20px;">返回首頁查看最新數據</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 遊戲化邏輯控制 -->
+    <script>
+        // 切換步驟的函數
+        function nextStep(stepNumber) {
+            // 隱藏所有步驟
+            document.querySelectorAll('.step').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            // 顯示目標步驟
+            document.getElementById('step-' + stepNumber).classList.add('active');
+            
+            // 將頁面滾動到最上方
+            window.scrollTo(0, 0);
+        }
+
+        // 記錄判決並進入下一步
+        function makeVerdict(verdictText) {
+            // 將使用者的選擇寫入結果頁面中
+            document.getElementById('user-verdict').innerText = verdictText;
+            // 進入第三步：顯示落差
+            nextStep(3);
+        }
+
+        // 提交反思
+        function submitReflection() {
+            // 這裡未來可以串接後端 API 將資料存入資料庫
+            nextStep(4);
+        }
+    </script>
+</body>
+</html>
