@@ -245,31 +245,70 @@
 
     <!-- 遊戲化邏輯控制 -->
     <script>
+        // 全域變數，用來暫存使用者的判決選擇
+        let currentVerdict = "";
+        const CASE_ID = "nanny_case_2023"; // 設定這份表單對應的案件代號
+
         // 切換步驟的函數
         function nextStep(stepNumber) {
-            // 隱藏所有步驟
             document.querySelectorAll('.step').forEach(function(el) {
                 el.classList.remove('active');
             });
-            // 顯示目標步驟
             document.getElementById('step-' + stepNumber).classList.add('active');
-            
-            // 將頁面滾動到最上方
             window.scrollTo(0, 0);
         }
 
         // 記錄判決並進入下一步
         function makeVerdict(verdictText) {
-            // 將使用者的選擇寫入結果頁面中
+            // 暫存使用者的選擇
+            currentVerdict = verdictText;
+            // 將使用者的選擇顯示在結果頁面上
             document.getElementById('user-verdict').innerText = verdictText;
-            // 進入第三步：顯示落差
             nextStep(3);
         }
 
-        // 提交反思
+        // 送出 API 請求給 Flask 後端
         function submitReflection() {
-            // 這裡未來可以串接後端 API 將資料存入資料庫
-            nextStep(4);
+            // 取得使用者填寫的反思文字
+            const reflectionText = document.querySelector('textarea').value;
+            
+            // 鎖定按鈕，避免重複點擊送出
+            const submitBtn = document.querySelector('button[onclick="submitReflection()"]');
+            submitBtn.innerText = "資料傳送中...";
+            submitBtn.disabled = true;
+
+            // 將資料打包
+            const payload = {
+                case_id: CASE_ID,
+                verdict: currentVerdict,
+                reflection: reflectionText
+            };
+
+            // 使用 fetch 發送 POST 請求
+            fetch('http://127.0.0.1:5000/api/submit_verdict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "success") {
+                    // 資料成功寫入資料庫後，才進入成功感謝頁面
+                    nextStep(4);
+                } else {
+                    alert("提交失敗：" + data.message);
+                    submitBtn.innerText = "正式提交我的意見";
+                    submitBtn.disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("連線發生錯誤，請確定後端伺服器已啟動。");
+                submitBtn.innerText = "正式提交我的意見";
+                submitBtn.disabled = false;
+            });
         }
     </script>
 </body>
