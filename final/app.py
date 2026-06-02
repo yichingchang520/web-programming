@@ -74,5 +74,5 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    # 啟動 Flask 伺服器，開啟 debug 模式方便除錯
-    app.run(debug=True, port=5000)
+    # 加上 host='0.0.0.0'，這是雲端環境必備的設定
+    app.run(host='0.0.0.0', port=5000, debug=True)
