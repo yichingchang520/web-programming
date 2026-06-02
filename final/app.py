@@ -3,7 +3,9 @@ import sqlite3
 import datetime
 import os
 
-app = Flask(__name__)
+# 明確指定 templates 資料夾的絕對路徑
+template_dir = os.path.abspath(os.path.dirname(__file__)) + '/templates'
+app = Flask(__name__, template_folder=template_dir)
 
 # 定義資料庫檔案名稱
 DB_NAME = 'justice_bridge.db'
