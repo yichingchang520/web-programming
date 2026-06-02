@@ -7,8 +7,13 @@ import os
 template_dir = os.path.abspath(os.path.dirname(__file__)) + '/templates'
 app = Flask(__name__, template_folder=template_dir)
 
-# 定義資料庫檔案名稱
-DB_NAME = 'justice_bridge.db'
+# 抓取 app.py 所在的資料夾路徑
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# 強制將資料庫與 app.py 放在一起
+DB_NAME = os.path.join(BASE_DIR, 'justice_bridge.db')
+
+# (下方保留你原本的程式碼)
+app = Flask(__name__)
 
 # 1. 初始化資料庫（如果沒有 Table 就建立一個）
 def init_db():

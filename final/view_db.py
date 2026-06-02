@@ -1,8 +1,11 @@
 import sqlite3
 import pandas as pd
+import os
 
-# 定義資料庫檔案名稱
-DB_NAME = 'justice_bridge.db'
+# 抓取 view_db.py 所在的資料夾路徑
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# 強制讀取同一層的資料庫
+DB_NAME = os.path.join(BASE_DIR, 'justice_bridge.db')
 
 def view_data():
     try:
