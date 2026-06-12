@@ -3,17 +3,18 @@ import sqlite3
 import datetime
 import os
 
-# 明確指定 templates 資料夾的絕對路徑
-template_dir = os.path.abspath(os.path.dirname(__file__)) + '/templates'
-app = Flask(__name__, template_folder=template_dir)
-
 # 抓取 app.py 所在的資料夾路徑
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 明確指定 templates 資料夾的絕對路徑
+template_dir = os.path.join(BASE_DIR, 'templates')
+
+# 【修正點 1】只初始化一次 app，不要在下面重複覆蓋！
+app = Flask(__name__, template_folder=template_dir)
+
 # 強制將資料庫與 app.py 放在一起
 DB_NAME = os.path.join(BASE_DIR, 'justice_bridge.db')
 
-# (下方保留你原本的程式碼)
-app = Flask(__name__)
 
 # 1. 初始化資料庫（如果沒有 Table 就建立一個）
 def init_db():
@@ -39,23 +40,18 @@ init_db()
 @app.route('/api/submit_verdict', methods=['POST'])
 def submit_verdict():
     try:
-        # 從前端接收 JSON 格式的資料
         data = request.get_json()
         
-        # 取出我們需要的欄位
         case_id = data.get('case_id')
         verdict = data.get('verdict')
         reflection = data.get('reflection')
 
-        # 簡單的防呆機制：確保必填欄位有值
         if not case_id or not verdict:
             return jsonify({"status": "error", "message": "案件代號與判決為必填欄位"}), 400
 
-        # 將資料存入 SQLite 資料庫
         conn = sqlite3.connect(DB_NAME)
         cursor = conn.cursor()
         
-        # 獲取當下台灣時間 (UTC+8) 作為記錄時間
         submit_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         cursor.execute('''
@@ -66,7 +62,6 @@ def submit_verdict():
         conn.commit()
         conn.close()
 
-        # 回傳成功訊息給前端
         return jsonify({"status": "success", "message": "判決與反思已成功記錄！"}), 200
 
     except Exception as e:
@@ -75,8 +70,10 @@ def submit_verdict():
 
 # ======= 網頁路由 (GET 請求) =======
 
-# 1. 首頁
+# 【修正點 2】幫首頁加上雙重路由！
+# 這樣不管是進入 `/` 還是 `/index.html`，Flask 都會乖乖把首頁拿出來
 @app.route('/')
+@app.route('/index.html')
 def index():
     return render_template('index.html')
 
@@ -101,5 +98,4 @@ def court_school():
     return render_template('court_school.html')
 
 if __name__ == '__main__':
-    # 加上 host='0.0.0.0'，這是雲端環境必備的設定
     app.run(host='0.0.0.0', port=5000, debug=True)
